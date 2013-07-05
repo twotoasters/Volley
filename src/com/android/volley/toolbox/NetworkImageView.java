@@ -60,6 +60,9 @@ public class NetworkImageView extends ImageView {
     public NetworkImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
+ 
+    /** The it takes NIV to do a fade transition between images.
+    private static final int ANIMATION_DURATION = 150;
 
     /**
      * Sets URL of the image that should be loaded into this view. Note that calling this will
@@ -173,6 +176,17 @@ public class NetworkImageView extends ImageView {
 
         // update the ImageContainer to be the new bitmap container.
         mImageContainer = newContainer;
+    }
+    
+    @Override
+    public void setImageBitmap(Bitmap bm) {
+        TransitionDrawable td = new TransitionDrawable(new Drawable[]{
+                new ColorDrawable(android.R.color.transparent),
+                new BitmapDrawable(getContext().getResources(), bm)
+        });
+ 
+        setImageDrawable(td);
+        td.startTransition(ANIMATION_DURATION);
     }
 
     @Override
