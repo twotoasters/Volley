@@ -61,7 +61,7 @@ public class NetworkImageView extends ImageView {
         super(context, attrs, defStyle);
     }
  
-    /** The it takes NIV to do a fade transition between images.
+    /** How long it takes NIV to do a fade transition between images.
     private static final int ANIMATION_DURATION = 150;
 
     /**
