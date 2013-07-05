@@ -18,8 +18,8 @@ package com.android.volley.toolbox;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
-import android.widget.LinearLayout.LayoutParams;
 
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader.ImageContainer;
@@ -48,9 +48,6 @@ public class NetworkImageView extends ImageView {
 
     /** Current ImageContainer. (either in-flight or finished) */
     private ImageContainer mImageContainer;
-
-    /** The it takes NIV to do a fade transition between images.
-    private static final int ANIMATION_DURATION = 150;
 
     public NetworkImageView(Context context) {
         this(context, null);
@@ -107,7 +104,8 @@ public class NetworkImageView extends ImageView {
         int width = getWidth();
         int height = getHeight();
 
-        boolean isFullyWrapContent = getLayoutParams().height == LayoutParams.WRAP_CONTENT
+        boolean isFullyWrapContent = getLayoutParams() != null
+                && getLayoutParams().height == LayoutParams.WRAP_CONTENT
                 && getLayoutParams().width == LayoutParams.WRAP_CONTENT;
         // if the view's bounds aren't known yet, and this is not a wrap-content/wrap-content
         // view, hold off on loading the image.
@@ -175,17 +173,6 @@ public class NetworkImageView extends ImageView {
 
         // update the ImageContainer to be the new bitmap container.
         mImageContainer = newContainer;
-    }
-    
-    @Override
-    public void setImageBitmap(Bitmap bm) {
-        TransitionDrawable td = new TransitionDrawable(new Drawable[]{
-                new ColorDrawable(android.R.color.transparent),
-                new BitmapDrawable(getContext().getResources(), bm)
-        });
- 
-        setImageDrawable(td);
-        td.startTransition(ANIMATION_DURATION);
     }
 
     @Override
