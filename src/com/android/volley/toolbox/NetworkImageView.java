@@ -16,6 +16,11 @@
 package com.android.volley.toolbox;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.ViewGroup.LayoutParams;
@@ -60,8 +65,10 @@ public class NetworkImageView extends ImageView {
     public NetworkImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
- 
-    /** How long it takes NIV to do a fade transition between images.
+
+    /**
+     *  How long it takes NIV to do a fade transition between images.
+     */
     private static final int ANIMATION_DURATION = 150;
 
     /**
@@ -177,14 +184,14 @@ public class NetworkImageView extends ImageView {
         // update the ImageContainer to be the new bitmap container.
         mImageContainer = newContainer;
     }
-    
+
     @Override
     public void setImageBitmap(Bitmap bm) {
         TransitionDrawable td = new TransitionDrawable(new Drawable[]{
                 new ColorDrawable(android.R.color.transparent),
                 new BitmapDrawable(getContext().getResources(), bm)
         });
- 
+
         setImageDrawable(td);
         td.startTransition(ANIMATION_DURATION);
     }
